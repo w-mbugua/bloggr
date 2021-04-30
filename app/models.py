@@ -32,7 +32,7 @@ class Blog(db.Model):
     title = db.Column(db.Text)
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     post =  db.Column(db.String(500))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('writers.id'))
     comments = db.relationship('Comment', backref = 'blog', lazy = 'dynamic')
 
     def __repr__(self):
@@ -44,7 +44,7 @@ class Comment(db.Model):
     body = db.Column(db.String(255))
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('writers.id'))
     
 
     def __repr__(self):
