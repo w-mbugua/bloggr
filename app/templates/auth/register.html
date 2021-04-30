@@ -1,0 +1,68 @@
+{% extends 'layout.html'%}
+{% block content %}
+<form method="post">
+    {{ form.hidden_tag() }}  <!--  adds a csrf token -->
+     <fieldset class=""form-group>
+       <legend  class="mb-4 cto">Get Started</legend>
+       <div class="form-group">
+         {{ form.username.label(class="form-control-label") }}
+ 
+         {% if form.username.errors %}
+         {{ form.username(class="form-control form-conrol-lg is-invalid") }}
+         <div class="invalid-feedback">
+           {% for error in form.username.errors %}
+             <span>{{error}}</span>
+           {% endfor %}
+         </div>
+         {% else %}
+         {{ form.username(class="form-control form-control-lg") }}
+         {% endif %}
+       </div>
+       <div class="form-group">
+         {{ form.email.label(class="form-control-label") }}
+         {% if form.email.errors %}
+         {{ form.email(class="form-control form-conrol-lg is-invalid") }}
+         <div class="invalid-feedback">
+           {% for error in form.email.errors %}
+             <span>{{error}}</span>
+           {% endfor %}
+         </div>
+         {% else %}password
+         {{ form.email(class="form-control form-control-lg") }}
+         {% endif %}
+       </div>
+       <div class="form-group">
+         {{ form.password.label(class="form-control-label") }}
+         {% if form.password.errors %}
+         {{ form.password(class="form-control form-conrol-lg is-invalid") }}
+         <div class="invalid-feedback">
+           {% for error in form.password.errors %}
+             <span>{{error}}</span>
+           {% endfor %}
+         </div>
+         {% else %}
+         {{ form.password(class="form-control form-control-lg") }}
+         {% endif %}
+       </div>
+       <div class="form-group">
+         {{ form.confirm_password.label(class="form-control-label") }}
+         {% if form.confirm_password.errors %}
+         {{ form.confirm_password(class="form-control form-conrol-lg is-invalid") }}
+         <div class="invalid-feedback">
+           {% for error in form.confirm_password.errors %}
+             <span>{{error }}</span>
+           {% endfor %}
+         </div>
+         {% else %}
+         {{ form.confirm_password(class="form-control form-control-lg") }}
+         {% endif %}
+       </div>
+     </filedset>
+     <div class="form-group">
+       {{ form.submit(class="btn btn-register") }}
+       <button style="border-color: lightcoral;" class="btn">
+          <a style="color: lightcoral;" class="ml-2" href="{{ url_for('auth.login') }}">Sign In</a>
+       </button>
+     </div>
+   </form>
+{% endblock %}
