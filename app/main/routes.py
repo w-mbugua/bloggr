@@ -5,3 +5,9 @@ from flask import render_template
 @main.route('/')
 def index():
     return render_template('index.html', title = 'Home Page')
+
+@main.route('/register')
+def register():
+    
+
+    return render_template('register.html')

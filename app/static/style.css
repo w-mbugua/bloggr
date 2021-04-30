@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Didact+Gothic&family=Poiret+One&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-image: url(./images/header1.jpg);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    min-height: 400px;
+}
+.navbar {
+    background-color: #AFC9CE;
+    color: #273437;
+    letter-spacing: 5px;
+    font-family: 'Poiret One', cursive;
+    font-weight: bolder;
+}
+.mid-nav {
+   margin-left: 16rem;
+ 
+}
+nav a {
+  color: white;
+  text-transform: uppercase;
+ 
+
+}
+.blog {
+    font-family: 'Caveat', cursive;
+}
+.sidenav {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #AFC9CE;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  .sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    display: block;
+  }
+  
+  .sidenav a:hover {
+    color: black;
+  }
+  
+  .main {
+    margin-left: 160px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
