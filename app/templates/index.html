@@ -1,6 +1,10 @@
 {% extends 'base.html'%}
-{% block content %}
 
+{% block content %}
+<div class="blog quote container mt-3 mb-3">
+    <blockquote class="text-muted">Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it ~ Lebron James</blockquote>
+   <hr>
+   </div>
 {% if posts %}
 {% for post in posts %}
    {% if post.post |length > 255 %}
@@ -13,7 +17,7 @@
         <p>{{post.post| truncate(255)}}</p>
         </div>
         <div class="col-md-1">
-            <p><a href="#">See more...</a></p>
+            <p><a href="{{url_for('main.read_blog', id = post.id)}}">See more...</a></p>
         </div>
     </div>
     <hr>

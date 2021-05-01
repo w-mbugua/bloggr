@@ -45,7 +45,7 @@
     <div class="row">
       <div class="col-md-2">
         <div class="sidenav">
-          <a href="#about">About</a>
+          <a href="{{url_for('main.index')}}">Home</a>
           <a href="#services">Services</a>
           <a href="#clients">Clients</a>
           <a href="#contact">Contact</a>
@@ -55,10 +55,7 @@
       </div>
       
      <div class="col-md-8">
-       <div class="blog ml-4 quote container mt-3 mb-3">
-         <blockquote class="ml-4 text-muted">Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it ~ Lebron James</blockquote>
-        <hr>
-        </div>
+       
       <div class="main container">
         {% block content %}
         {% endblock %}
