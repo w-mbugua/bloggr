@@ -3,7 +3,7 @@ from flask import render_template, flash, redirect, url_for, abort
 from flask_login import login_required
 from .forms import BlogPost, CommentForm
 from .. import db
-from ..models import Blog, Comment
+from ..models import Blog, Comment, Writer
 
 
 @main.route('/')
@@ -46,5 +46,13 @@ def comment(id):
        db.session.commit()
        
    return redirect(url_for('main.read_blog', id = blog.id))
+
+@main.route('/writer/<string:writers_name>')
+def profile(writers_name):
+    writer = Writer.query.filter_by(username = writers_name).first()
+    if writer is None:
+        abort(404)
+    return render_template('profile/profile.html', writer = writer)
+
  
 
