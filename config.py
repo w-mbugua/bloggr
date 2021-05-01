@@ -5,6 +5,8 @@ class Config:
     SECRET_KEY= os.environ.get('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://joey:alchemist007@localhost/bloggr'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SIMPLEMDE_JS_IIFE = True
+    SIMPLEMDE_USE_CDN = True
 
 class ProdConfig(Config):
     pass
