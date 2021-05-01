@@ -9,7 +9,7 @@ header {
     background-size: cover;
     background-position: center;
     position: relative;
-    min-height: 400px;
+    height: 200px;
 }
 .navbar {
     background-color: #AFC9CE;
@@ -28,15 +28,21 @@ nav a {
  
 
 }
-.blog {
+.blog, blockquote {
     font-family: 'Caveat', cursive;
+}
+blockquote{
+  font-size: 1.5rem;
+}
+.quote {
+  text-align: center;
 }
 .sidenav {
     height: 100%;
-    width: 160px;
-    position: fixed;
+    width: 200px;
+    position: relative;
     z-index: 1;
-    top: 0;
+    top: calc(0 - 200px);
     left: 0;
     background-color: #AFC9CE;
     overflow-x: hidden;
@@ -46,6 +52,7 @@ nav a {
   .sidenav a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
+    font-family: 'Poiret One', cursive;
     font-size: 25px;
     color: white;
     display: block;
@@ -58,6 +65,7 @@ nav a {
   .main {
     margin-left: 160px; /* Same as the width of the sidenav *//* Increased text to enable scrolling */
     padding: 0px 10px;
+    font-family: 'Didact Gothic', sans-serif;
   }
   
   @media screen and (max-height: 450px) {
