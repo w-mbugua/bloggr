@@ -39,33 +39,31 @@
                   <a class="ml-2 mr-2 nav-item nav-link" href="{{ url_for('main.index')}}">About</a>
                   <a class="nav-item nav-link" href="{{ url_for('main.index')}}">Features</a>
                 </div>
-        
                  <ul class="nav navbar-nav navbar-right">
-                 
-                   
                     <a class="nav-item nav-link" href="{{ url_for('main.index')}}">Contact Me</a>
-                
-                  
-                
                   </ul>
-                
-         
               </div>
             </div>
-        
           </nav>
         </div>
-   <div style="padding-top: 5rem;" class="container">
-       <div class="row">
-        <div style="padding-top: 10rem;" class="col-md-6">
-            <img src="{{url_for('static', filename='/images/pablo.png')}}" alt="" width="500px">
-        </div>
-        <div class="col-md-6">
-               {% block content %} 
-               {% endblock %}            
+      <div style="padding-top: 5rem;" class="container">
+          <div class="row">
+              <div style="padding-top: 10rem;" class="col-md-6">
+                  <img src="{{url_for('static', filename='/images/pablo.png')}}" alt="" width="500px">
+              </div>
+              <div class="col-md-6">
+                <!--Flash message -->
+                {% for message in get_flashed_messages(with_categories = True) %}
+                <div class="alert alert-{{ category }}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+                </div>
+                {% endfor %}
+                {% block content %} 
+                {% endblock %}            
               
+              </div> 
+          </div>
         </div>
-       
-   </div>
 </body>
 </html>
