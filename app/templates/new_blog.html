@@ -5,8 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
-    {{ simplemde.css }}
-    {{ simplemde.js }}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
@@ -26,6 +24,8 @@
           text-decoration: none;
         }
     </style>
+    {{ simplemde.css }}
+    {{ simplemde.js }}
 </head>
 <body style="font-family: 'Poiret One', cursive; font-weight: bold; height: 100vh;">
     <div>
@@ -50,58 +50,59 @@
         </div>
       <div style="padding-top: 5rem;" class="container">
           <div class="row">
-              <div style="padding-top: 10rem;" class="col-md-6">
-                  <img src="{{url_for('static', filename='/images/pablo.png')}}" alt="" width="500px">
-              </div>
-              <div class="col-md-6">
+             
+              <div class="col-md-8">
                 <!--Flash message -->
-                {% for message in get_flashed_messages(with_categories = True) %}
-                <div class="alert alert-{{ category }}">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                {{ message }}
-                </div>
-                {% endfor %}
 
                 <!-- blogging form -->
-              <form action="" method="POST">
-                <div class="form-group">
-                    {{ form.title.label(class="form-control-label") }}
-            
-                    {% if form.title.errors %}
-                    {{ form.title(class="form-control form-conrol-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                      {% for error in form.title.errors %}
-                        <span>{{error}}</span>
-                      {% endfor %}
-                    </div>
-                    {% else %}
-                    {{ form.title(class="form-control form-control-lg") }}
-                    {% endif %}
-                  </div>
-                  <div class="form-group">
-                    {{ form.body.label(class="form-control-label") }}
-                    {% if form.body.errors %}
-                    {{ form.body(class="form-control form-conrol-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                      {% for error in form.body.errors %}
-                        <span>{{error}}</span>
-                      {% endfor %}
-                    </div>
-                    {% else %}
-                    {{ form.body(class="form-control form-control-lg") }}
-                    {{ simplemde.load }}
-                    {% endif %}
-                  </div>
-                  <div class="form-group">
-                    {{ form.submit(class="btn btn-register") }}
-                    <button style="border-color: lightcoral;" class="btn">
-                       <a style="color: lightcoral;" class="ml-2" href="{{ url_for('main.index') }}">Cancel</a>
-                    </button>
-                  </div>
-              </form>        
-              
-              </div> 
+              <div class="col-md-8">
+                <form method="post">
+                    {{ form.hidden_tag() }}  <!--  adds a csrf token -->
+                     <fieldset class=""form-group>
+                       <legend  class="mb-4 cto">Get Started</legend>
+                       <div class="form-group">
+                         {{ form.title.label(class="form-control-label") }}
+                 
+                         {% if form.title.errors %}
+                         {{ form.title(class="form-control form-conrol-lg is-invalid") }}
+                         <div class="invalid-feedback">
+                           {% for error in form.title.errors %}
+                             <span>{{error}}</span>
+                           {% endfor %}
+                         </div>
+                         {% else %}
+                         {{ form.title(class="form-control form-control-lg") }}
+                         {% endif %}
+                       </div>
+                       <div class="form-group">
+                         {{ form.body.label(class="form-control-label") }}
+                         {% if form.body.errors %}
+                         {{ form.body(class="form-control form-conrol-lg is-invalid") }}
+                         <div class="invalid-feedback">
+                           {% for error in form.body.errors %}
+                             <span>{{error}}</span>
+                           {% endfor %}
+                         </div>
+                         {% else %}
+                         {{ form.body(class="form-control form-control-lg") }}
+                         {{simplemde.load}}
+                         {% endif %}
+                       </div>
+                     </filedset>
+                     <div class="form-group">
+                       {{ form.submit(class="btn btn-register") }}
+                       <button style="border-color: lightcoral;" class="btn">
+                          <a style="color: lightcoral;" class="ml-2" href="{{ url_for('auth.login') }}">Home</a>
+                       </button>
+                     </div>
+                   </form>
+                   
+              </div>
+              </div>
+              <div class="col-md-4">
+               
           </div>
         </div>
+    
 </body>
 </html>

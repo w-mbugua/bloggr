@@ -1,5 +1,11 @@
 {% extends 'base.html'%}
 {% block content %}
 <h1>You are home!</h1>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora blanditiis et laborum corporis aspernatur! Consectetur numquam dicta, ratione accusamus sequi deleniti, itaque cum officia obcaecati mollitia tempore vitae, illo possimus?</p>
+{% if posts %}
+{% for post in posts %}
+    <p>{{post.post}}</p>
+{% endfor %}
+{% else %}
+<P>No posts</P>
+{% endif %}
 {% endblock %}

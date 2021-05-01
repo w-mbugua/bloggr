@@ -36,14 +36,14 @@ class Writer(UserMixin, db.Model):
 class Blog(db.Model):
     __tablename__='blogs'
     id = db.Column(db.Integer, primary_key = True)
-    title = db.Column(db.Text)
+    title = db.Column(db.String(255))
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
-    post =  db.Column(db.String(500))
+    post =  db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey('writers.id'))
     comments = db.relationship('Comment', backref = 'blog', lazy = 'dynamic')
 
     def __repr__(self):
-        return f"User('{self.date_posted}')"
+        return f"User('{self.title}\n{self.post}\n{self.user}')"
     
 class Comment(db.Model):
     __tablename__='comments'

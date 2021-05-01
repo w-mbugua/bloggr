@@ -6,5 +6,5 @@ from wtforms.validators import DataRequired, Length
 
 class BlogPost(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
-    body = TextAreaField('Post', validators=[DataRequired(), Length(min=500)])
-    submit = SubmitField('Post')
+    body = TextAreaField('Post')
+    submit = SubmitField('Publish')
