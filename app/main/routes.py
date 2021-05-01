@@ -1,7 +1,7 @@
 from . import main
 from flask import render_template, flash, redirect, url_for, abort
 from flask_login import login_required
-from .forms import BlogPost, CommentForm
+from .forms import BlogPost, CommentForm, UpdateProfile
 from .. import db
 from ..models import Blog, Comment, Writer
 
@@ -53,6 +53,23 @@ def profile(writers_name):
     if writer is None:
         abort(404)
     return render_template('profile/profile.html', writer = writer)
+
+
+@main.route('/writer/<name>/update', methods = ['GET', 'POST'])
+def update_profile(name):
+    form = UpdateProfile()
+    writer = Writer.query.filter_by(username = name).first()
+    if writer is None:
+        abort(404)
+
+    form = UpdateProfile()
+    if form.validate_on_submit():
+        writer.bio = form.bio.data
+        db.session.add(writer)
+        db.session.commit()
+        return redirect(url_for('.profile', writers_name = writer.username))
+    return render_template('profile/update.html', form = form)
+
 
  
 

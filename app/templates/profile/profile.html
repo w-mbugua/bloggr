@@ -8,6 +8,9 @@
                 <p>{{ writer.bio }}</p>
                 {% else %}
                 <p>{{ writer.username | capitalize }} has no bio.</p>
+                {% if writer == current_user %}
+                <p><a href="{{ url_for('main.update_profile', name = writer.username)}}">Edit Profile</a></p>
+                {% endif %}
                 {% endif %}
             </div>
             <!-- photo -->
