@@ -1,7 +1,7 @@
 from . import main
 from flask import render_template, flash, redirect, url_for, abort
 from flask_login import login_required
-from .forms import BlogPost
+from .forms import BlogPost, CommentForm
 from .. import db
 from ..models import Blog
 
@@ -28,6 +28,7 @@ def new_blog():
 @main.route('/blog/<int:id>')
 def read_blog(id):
     blog = Blog.query.get_or_404(id)
+    comment_form = CommentForm()
     if blog is None:
         abort(404)
-    return render_template('blog.html', blog = blog)
+    return render_template('blog.html', blog = blog, form = comment_form)

@@ -48,6 +48,7 @@ class Blog(db.Model):
 class Comment(db.Model):
     __tablename__='comments'
     id = db.Column(db.Integer, primary_key = True)
+    username = db.Column(db.String(120))
     body = db.Column(db.String(255))
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
