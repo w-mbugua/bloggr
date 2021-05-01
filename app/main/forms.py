@@ -1,6 +1,6 @@
 from flask.app import Flask
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField
+from wtforms import StringField, HiddenField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Length
 
 
@@ -10,6 +10,6 @@ class BlogPost(FlaskForm):
     submit = SubmitField('Publish')
 
 class CommentForm(FlaskForm):
-    username = StringField('Title', validators=[DataRequired()])
-    content = TextAreaField('Reply', validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired()])
+    body = TextAreaField('Reply', validators=[DataRequired()])
     submit = SubmitField('Post')

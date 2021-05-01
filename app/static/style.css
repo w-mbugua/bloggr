@@ -22,6 +22,9 @@ header {
    margin-left: 16rem;
  
 }
+.btn-register {
+  background-color: lightcoral;
+}
 nav a {
   color: white;
   text-transform: uppercase;

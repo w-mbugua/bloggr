@@ -3,7 +3,7 @@ from flask import render_template, flash, redirect, url_for, abort
 from flask_login import login_required
 from .forms import BlogPost, CommentForm
 from .. import db
-from ..models import Blog
+from ..models import Blog, Comment
 
 
 @main.route('/')
@@ -28,7 +28,23 @@ def new_blog():
 @main.route('/blog/<int:id>')
 def read_blog(id):
     blog = Blog.query.get_or_404(id)
-    comment_form = CommentForm()
     if blog is None:
         abort(404)
-    return render_template('blog.html', blog = blog, form = comment_form)
+    comment_form = CommentForm()
+
+    comments = Comment.query.filter_by(blog_id = blog.id).all()
+    return render_template('blog.html', blog = blog, form = comment_form, comments = comments)
+
+@main.route('/comment/<int:id>', methods = ['GET','POST'])
+@login_required
+def comment(id):
+   blog = Blog.query.get_or_404(id)
+   form = CommentForm()
+   if form.validate_on_submit():
+       comment = Comment(username = form.username.data, body = form.body.data, blog_id = blog.id)
+       db.session.add(comment)
+       db.session.commit()
+       
+   return redirect(url_for('main.read_blog', id = blog.id))
+ 
+

@@ -5,8 +5,36 @@
 <hr>
 <p>{{ blog.post }}</p>
 <small><a href="#">Leave a comment.</a></small>
-<div>
-    
+<div class="card card-outline-secondary my-4">
+  <div class="card-header">
+   Leave a comment
+  </div>
+  <div class="card-body">
+    <form class="comment-form" action="{{ url_for('main.comment', id = blog.id) }}" method="POST">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+        {{ form.username.label }}
+        {{ form.username(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form.body.label }}
+        {{ form.body(class="form-control", rows="3") }}
+      </div>
+      {{ form.submit(class="btn btn-register") }}
+      <span class="comment-error"></span>
+    </form>
+    <hr class="form-border">
+    {% if comments %}
+    {% for comment in comments %}
+    <p>{{ comment.body }}</p>
+    <small class="text-muted">Posted by {{comment.username}}</small>
+    <hr>
+    {% endfor %}
+    {% else %}
+    <p class="placeholder-comment">Be the first to comment on this item</p>
+    {% endif %}
+  </div>
 </div>
+
 {% endif %}
 {% endblock %}
