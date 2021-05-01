@@ -1,8 +1,15 @@
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+from flask_login import UserMixin
+from . import login_manager
 
-class Writer(db.Model):
+
+@login_manager.user_loader
+def load_user(writer_id):
+    return Writer.query.get(int(writer_id))
+
+class Writer(UserMixin, db.Model):
     __tablename__ = 'writers'
     id = db.Column(db.Integer,primary_key = True)
     username = db.Column(db.String(255))

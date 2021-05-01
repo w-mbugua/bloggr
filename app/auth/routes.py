@@ -2,6 +2,7 @@ from . import auth
 from flask import render_template, url_for, redirect
 from .forms import RegistrationForm, LoginForm
 
+
 @auth.route('/register', methods = ['GET', 'POST'])
 def register():
     form = RegistrationForm()
