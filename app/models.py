@@ -17,7 +17,7 @@ class Writer(UserMixin, db.Model):
     password_hash = db.Column(db.String(255))
     bio = db.Column(db.String(255))
     image_path = db.Column(db.String())
-    blog = db.relationship('Blog', backref = 'writer', lazy = 'dynamic')
+    blogs = db.relationship('Blog', backref = 'writer', lazy = 'dynamic')
    
     
     @property
@@ -38,10 +38,10 @@ class Writer(UserMixin, db.Model):
 class Blog(db.Model):
     __tablename__='blogs'
     id = db.Column(db.Integer, primary_key = True)
+    writer_id = db.Column(db.Integer, db.ForeignKey('writers.id'))
     title = db.Column(db.String(255))
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     post =  db.Column(db.Text)
-    writer_id = db.Column(db.Integer, db.ForeignKey('writers.id'))
     comments = db.relationship('Comment', backref = 'blog', lazy = 'dynamic')
 
     def __repr__(self):

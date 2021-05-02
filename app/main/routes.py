@@ -52,7 +52,7 @@ def profile(writers_name):
     writer = Writer.query.filter_by(username = writers_name).first()
     if writer is None:
         abort(404)
-    blogs = writer.blog.order_by(Blog.date_posted.desc()).all()
+    blogs = Blog.query.order_by(Blog.date_posted.desc()).filter_by(writer_id = writer.id)
     return render_template('profile/profile.html', writer = writer, blogs = blogs)
 
 
