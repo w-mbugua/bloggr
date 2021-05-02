@@ -1,6 +1,6 @@
 from . import main
 from flask import render_template, flash, redirect, url_for, abort
-from flask_login import login_required
+from flask_login import login_required, current_user
 from .forms import BlogPost, CommentForm, UpdateProfile
 from .. import db
 from ..models import Blog, Comment, Writer
@@ -17,7 +17,7 @@ def new_blog():
     # a form to create a blog post
     form = BlogPost()
     if form.validate_on_submit():
-        blog = Blog(title = form.title.data, post = form.body.data)
+        blog = Blog(title = form.title.data, post = form.body.data, writer = current_user)
         db.session.add(blog)
         db.session.commit()
         flash('Your blog has been posted!', 'success')
@@ -52,7 +52,8 @@ def profile(writers_name):
     writer = Writer.query.filter_by(username = writers_name).first()
     if writer is None:
         abort(404)
-    return render_template('profile/profile.html', writer = writer)
+    blogs = writer.blog.order_by(Blog.date_posted.desc()).all()
+    return render_template('profile/profile.html', writer = writer, blogs = blogs)
 
 
 @main.route('/writer/<name>/update', methods = ['GET', 'POST'])
@@ -67,8 +68,26 @@ def update_profile(name):
         writer.bio = form.bio.data
         db.session.add(writer)
         db.session.commit()
+        flash('Your profile has been updated!')
         return redirect(url_for('.profile', writers_name = writer.username))
     return render_template('profile/update.html', form = form)
+
+@main.route('/blog/<int:id>/update', methods = ['GET','POST'])
+@login_required
+def blogupdate(id):
+   blog = Blog.query.get_or_404(id)
+   if blog.writer != current_user:
+       abort(403)
+   form = BlogPost()
+   if form.validate_on_submit():
+       blog.post = form.body.data
+       blog.title = form.title.data
+       db.session.commit()
+       return redirect(url_for('main.read_blog', id = blog.id))
+    # to populate the edit input with the posted blog text
+   form.body.data = blog.post
+   form.title.data = blog.title 
+   return render_template('new_blog.html', form = form)
 
 
  

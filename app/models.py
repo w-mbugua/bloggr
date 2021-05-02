@@ -17,8 +17,8 @@ class Writer(UserMixin, db.Model):
     password_hash = db.Column(db.String(255))
     bio = db.Column(db.String(255))
     image_path = db.Column(db.String())
-    blog = db.relationship('Blog', backref = 'user', lazy = 'dynamic')
-    comment = db.relationship('Comment', backref = 'user', lazy = 'dynamic')
+    blog = db.relationship('Blog', backref = 'writer', lazy = 'dynamic')
+   
     
     @property
     def password(self):
@@ -33,7 +33,7 @@ class Writer(UserMixin, db.Model):
         return check_password_hash(self.password_hash,password)
 
     def __repr__(self):
-        return f'User {self.username}'
+        return f'Writer {self.username}'
 
 class Blog(db.Model):
     __tablename__='blogs'
@@ -41,11 +41,11 @@ class Blog(db.Model):
     title = db.Column(db.String(255))
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     post =  db.Column(db.Text)
-    user_id = db.Column(db.Integer, db.ForeignKey('writers.id'))
+    writer_id = db.Column(db.Integer, db.ForeignKey('writers.id'))
     comments = db.relationship('Comment', backref = 'blog', lazy = 'dynamic')
 
     def __repr__(self):
-        return f"User('{self.title}\n{self.post}\n{self.user}')"
+        return f"Writer('{self.title}\n{self.post}\n{self.writer}')"
     
 class Comment(db.Model):
     __tablename__='comments'
@@ -54,8 +54,7 @@ class Comment(db.Model):
     body = db.Column(db.String(255))
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('writers.id'))
-    
+     
 
     def __repr__(self):
-        return f"User('{self.date_posted}')"
+        return f"Writer('{self.date_posted}')"

@@ -12,13 +12,20 @@
                 <p><a href="{{ url_for('main.update_profile', name = writer.username)}}">Edit Profile</a></p>
                 {% endif %}
                 {% endif %}
+                {% if blogs %}
+                {% for blog in blogs %}
+                    {{ blog.body }}
+                {% endfor %}
+                {% else %}
+                <p>You have no blog posts</p>
+                {% endif %}
             </div>
             <!-- photo -->
             <div class="col-md-3">
                 {% if writer.image_path %}
-                <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail">
+                <img src="{{url_for('static',filename='/images/avi.png')}}" alt="" class="img-thumbnail">
                 {% else %}
-                <p>You have not uploaded a profile picture.</p>
+                <img src="{{url_for('static',filename='/images/avi.png')}}" alt="" class="img-thumbnail">
                 {% endif %}
             </div>
         </div>
