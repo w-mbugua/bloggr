@@ -34,7 +34,7 @@ def new_blog():
         flash('Your blog has been posted!', 'success')
         for subby in subbies:
             if subby.email is not None:
-                msg = Message(subject="New Post Alert!",
+                msg = Message(subject=f"New Post Alert | {form.title.data}",
                           sender="itsjoymbugua@gmail.com",
                           recipients=[subby.email],
                           body=f"Hey {subby.name}\nJust wanted to let you know that we have just posted a new blog. Let us know what you think!\nJoy Mbugua")

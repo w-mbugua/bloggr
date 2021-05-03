@@ -6,26 +6,29 @@
   {{ message }}
   </div>
   {% endfor %}
-    <form method="post">
-     {{ form.hidden_tag() }}  <!--  adds a csrf token -->
-      <fieldset class=""form-group>
-        <legend class="mb-4 cto">Login</legend>
-   
-        <div class="form-group">
-          {{ form.email.label(class="form-control-label") }}
-          {{ form.email(class="form-control form-control-lg") }}
-        </div>
-        <div class="form-group">
-          {{ form.password.label(class="form-control-label") }}
-          {{ form.password(class="form-control form-control-lg") }}
-        </div>
- 
-      </fieldset>
-      <div class="form-group">
-        {{ form.submit(class="btn btn-login") }}
-        <button style="border-color: lightcoral;" class="btn">
-           <a style="color: lightcoral;" class="ml-2" href="{{ url_for('auth.register') }}">Sign Up</a>
-        </button>
-      </div>
-  </div>
+    <div class="container form">
+      <form method="post">
+        {{ form.hidden_tag() }}  <!--  adds a csrf token -->
+         <fieldset class=""form-group>
+           <legend class="mb-4 cto">Login</legend>
+      
+           <div class="form-group">
+             {{ form.email.label(class="form-control-label") }}
+             {{ form.email(class="form-control form-control-lg") }}
+           </div>
+           <div class="form-group">
+             {{ form.password.label(class="form-control-label") }}
+             {{ form.password(class="form-control form-control-lg") }}
+           </div>
+    
+         </fieldset>
+         <div class="form-group">
+           {{ form.submit(class="btn btn-login") }}
+           <button style="border-color: lightcoral;" class="btn">
+              <a style="color: lightcoral;" class="ml-2" href="{{ url_for('auth.register') }}">Sign Up</a>
+           </button>
+         </div>
+       </form>
+    </div>
+
 {% endblock %}

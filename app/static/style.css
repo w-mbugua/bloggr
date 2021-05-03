@@ -7,15 +7,18 @@ body {
 }
 header {
     background-image: url(./images/header1.jpg);
-    background-size: cover;
-    background-position: center;
+   
     position: relative;
     height: 300px;
+    background-size: cover;
+    background-position: center;
+    margin:0 auto;
 }
+
 .navbar {
     background-color: #AFC9CE;
     color: #273437;
-    letter-spacing: 5px;
+    letter-spacing: 3px;
     font-family: 'Poiret One', cursive;
     font-weight: bolder;
 }
@@ -60,7 +63,7 @@ blockquote{
 }
 .sidenav {
     height: 100%;
-    width: 200px;
+    width: 250px;
     position: relative;
     z-index: 1;
     top: calc(0 - 200px);
@@ -83,13 +86,17 @@ blockquote{
   .sidenav a:hover {
     color: black;
   }
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
   .social{
     display: flex;
     padding: 2rem;
   }
-  .main {
-    margin-left: 160px; /* Same as the width of the sidenav *//* Increased text to enable scrolling */
-    padding: 0px 10px;
+  .col-md-10 {
+    /* margin-left: 160px; /* Same as the width of the sidenav *//* Increased text to enable scrolling */
+    /* padding: 0px 10px; */
     font-family: 'Didact Gothic', sans-serif;
   }
 .col-md-1, .col-md-2 {
@@ -98,4 +105,19 @@ blockquote{
 }
 a:link {
   text-decoration: none;
+}
+.btn-register, .btn-login{
+  background-color: lightcoral;
+}
+.cto {
+  color: lightcoral;
+}
+.btn {
+  font-weight: bold;
+}
+.form-group{
+  color: darkslategray;
+}
+.form {
+  margin-top: 5rem;
 }
