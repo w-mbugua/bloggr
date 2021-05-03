@@ -5,17 +5,22 @@ from .forms import BlogPost, CommentForm, UpdateProfile, SubscriptionForm
 from .. import db
 from ..models import Blog, Comment, Writer, Subscription
 import urllib.request, json
-
+from flask_mail import Message
+from .. import mail
 
 @main.route('/')
 def index():
-    blogposts = Blog.query.order_by(Blog.date_posted.desc()).all()
+    page = request.args.get('page', 1, type = int)
+    blogposts = Blog.query.order_by(Blog.date_posted.desc()).paginate(page = page, per_page = 4)
     quote = random_quote()
     return render_template('index.html', title = 'Home Page', posts = blogposts, quote = quote)
+
+
 
 @main.route('/blog/new', methods = ['GET', 'POST'])
 @login_required
 def new_blog():
+    subbies = Subscription.query.all()
     # a form to create a blog post
     form = BlogPost()
     if form.validate_on_submit():
@@ -23,9 +28,16 @@ def new_blog():
         db.session.add(blog)
         db.session.commit()
         flash('Your blog has been posted!', 'success')
-        return redirect(url_for('main.index'))
+        for subby in subbies:
+            if subby.email is not None:
+                msg = Message(subject="New Post Alert!",
+                          sender="itsjoymbugua@gmail.com",
+                          recipients=[subby.email],
+                          body=f"Hey {subby.name}\nJust wanted to let you know that we have just posted a new blog. Let us know what you think!\nJoy Mbugua")
+                mail.send(msg)
+        return redirect(url_for('main.index'))  
     flash("Check your input!", 'warning')
-    return render_template('new_blog.html', form = form)
+    return render_template('new_blog.html', form = form, subbies = subbies)
 
 @main.route('/blog/<int:id>')
 def read_blog(id):
@@ -44,9 +56,8 @@ def comment(id):
    if form.validate_on_submit():
        comment = Comment(username = form.username.data, body = form.body.data, blog_id = blog.id)
        db.session.add(comment)
-       db.session.commit()
-       
-   return redirect(url_for('main.read_blog', id = blog.id))
+       db.session.commit()  
+   return redirect(url_for('main.read_blog', id = id))
 
 @main.route('/writer/<string:writers_name>')
 def profile(writers_name):
@@ -90,25 +101,27 @@ def blogupdate(id):
    form.title.data = blog.title 
    return render_template('new_blog.html', form = form)
 
-@main.route('/blog/<int:id>/delete', methods = ['POST'])
+@main.route('/blog/<int:id>/delete', methods = ['GET', 'POST'])
 @login_required
 def blog_delete(id):
-    blog = Blog.query.get_or_404(id)
+    blog = Blog.query.get(id)
     if blog.writer != current_user:
        abort(403)
     db.session.delete(blog)
     db.session.commit()
-    flash('Blog successfully deleted!', 'success')
+    flash('Blog successfully deleted!')
     return redirect(url_for('main.index'))
 
-@main.route('/comment/<int:id>/delete', methods = ['POST'])
+
+@main.route('/comment/<int:id>/delete', methods = ['GET', 'POST'])
 @login_required
 def comment_delete(id):
+    blog = Blog.query.filter_by()
     comment = Comment.query.get_or_404(id)
     db.session.delete(comment)
     db.session.commit()
     flash('Comment successfully deleted!', 'success')
-    return redirect(url_for('main.read_blog'))
+    return redirect(url_for('main.index'))
 
 def random_quote():
     base_url = 'http://quotes.stormconsultancy.co.uk/random.json'
@@ -136,5 +149,4 @@ def subscribe():
     return render_template('subscribe.html', form = form)
 
 
- 
 

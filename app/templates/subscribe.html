@@ -4,32 +4,14 @@
     <form method="post">
      {{ form.hidden_tag() }}  <!--  adds a csrf token -->
       <fieldset class=""form-group>
-        <legend class="mb-4 cto">Sign Up for our newsletter!</legend>
+        <legend class="mb-4 cto">Sign Up for new posts alert!</legend>
         <div class="form-group">
             {{ form.name.label(class="form-control-label") }}
-            {% if form.name.errors %}
-            {{ form.name(class="form-control form-conrol-lg is-invalid") }}
-            <div class="invalid-feedback">
-              {% for error in form.name.errors %}
-                <span>{{error}}</span>
-              {% endfor %}
-            </div>
-            {% else %}
             {{ form.name(class="form-control form-control-lg") }}
-            {% endif %}
           </div>
         <div class="form-group">
           {{ form.email.label(class="form-control-label") }}
-          {% if form.email.errors %}
-          {{ form.email(class="form-control form-conrol-lg is-invalid") }}
-          <div class="invalid-feedback">
-            {% for error in form.email.errors %}
-              <span>{{error}}</span>
-            {% endfor %}
-          </div>
-          {% else %}password
           {{ form.email(class="form-control form-control-lg") }}
-          {% endif %}
         </div>
  
       </fieldset>

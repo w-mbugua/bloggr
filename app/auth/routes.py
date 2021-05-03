@@ -29,10 +29,10 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         writer = Writer.query.filter_by(email = form.email.data).first()
-        if writer and writer.verify_password(form.password.data):
+        if writer is not None and writer.verify_password(form.password.data):
             login_user(writer, form.remember.data)
             return redirect(request.args.get(next) or url_for('main.index'))
-        flash('Invalid username or password', 'warning')
+        flash('Invalid username or password')
     return render_template('auth/login.html', title='Logged In', form = form)
 
 @auth.route('/logout')

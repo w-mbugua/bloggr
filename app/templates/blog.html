@@ -9,9 +9,6 @@
 <button class="btn-register"><a href="{{ url_for('main.blogupdate', id = blog.id)}}">Edit Post</a></button>
 <button class="btn-register"><a href="{{ url_for('main.blog_delete', id = blog.id)}}">Delete Post</a></button>
 {% endif %}
-{% if current_user.is_authenticated %}
-<button class="btn btn-danger"><a href="{{ url_for('main.comment_delete', id = comment.id)}}">Delete</a></button>
-{% endif %}
 <div class="card card-outline-secondary my-4">
   <div class="card-header">
    Leave a comment
@@ -35,6 +32,9 @@
     <h4>comments({{ blog.comments.count() }})</h4>
     {% for comment in comments %}
     <p>{{ comment.body }}</p>
+    {% if current_user.is_authenticated %}
+    <button class="btn btn-danger"><a href="{{ url_for('main.comment_delete', id = comment.id)}}">Delete</a></button>
+    {% endif %}
     <small class="text-muted">Posted by {{comment.username}}</small>
     <hr>
     {% endfor %}

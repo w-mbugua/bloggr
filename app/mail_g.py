@@ -1,4 +1,6 @@
-from flask_mail import Message
-from flask import render_template
-from . import mail
+from . import create_app
+from .models import Subscription
 
+subbies = Subscription.query.all()
+
+print(subbies)
