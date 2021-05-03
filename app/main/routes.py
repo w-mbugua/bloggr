@@ -90,6 +90,26 @@ def blogupdate(id):
    form.title.data = blog.title 
    return render_template('new_blog.html', form = form)
 
+@main.route('/blog/<int:id>/delete', methods = ['POST'])
+@login_required
+def blog_delete(id):
+    blog = Blog.query.get_or_404(id)
+    if blog.writer != current_user:
+       abort(403)
+    db.session.delete(blog)
+    db.session.commit()
+    flash('Blog successfully deleted!', 'success')
+    return redirect(url_for('main.index'))
+
+@main.route('/comment/<int:id>/delete', methods = ['POST'])
+@login_required
+def comment_delete(id):
+    comment = Comment.query.get_or_404(id)
+    db.session.delete(comment)
+    db.session.commit()
+    flash('Comment successfully deleted!', 'success')
+    return redirect(url_for('main.read_blog'))
+
 def random_quote():
     base_url = 'http://quotes.stormconsultancy.co.uk/random.json'
     with urllib.request.urlopen(base_url) as url:

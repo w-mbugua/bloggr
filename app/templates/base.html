@@ -12,60 +12,51 @@
 </head>
 <body>
     <!-- navbar -->
-    <header>
-        <img src="{{url_for('static', filename='header1.jpg')}}" alt="">
-        <nav class="navbar navbar-expand-md fixed-top">
-            <div style="margin-left: 0;" class="container">
-              <h3 class="blog">Joy Mbugua.</h3>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="ml-2 collapse navbar-collapse" id="navbarToggle">
-                <div class="mid-nav navbar-nav mr-auto">
-                  <a class="nav-item nav-link" href="{{ url_for('main.index')}}">Home</a>
-                  <a class="ml-2 mr-2 nav-item nav-link" href="{{ url_for('main.index')}}">About</a>
-                  <a class="nav-item nav-link" href="{{ url_for('main.index')}}">Features</a>
-                  <a class="nav-item nav-link" href="{{ url_for('main.new_blog')}}">New Post</a>
-                </div>
-        
-                 <ul class="nav navbar-nav navbar-right">   
-                    {% if current_user.is_authenticated %}
-                    <a class="nav-item nav-link" href="{{ url_for('main.profile', writers_name = current_user.username)}}">Profile</a>
-                    <a class="nav-item nav-link" href="{{ url_for('auth.logout')}}">Sign Out</a>
-                    {% else %}
-                    <a class="nav-item nav-link" href="{{ url_for('auth.login')}}">Sign In</a>
-                    {% endif %}
-                  </ul>
-
-              </div>
-            </div>
-        
-          </nav>
-    </header>
-    <!-- sidebar -->
-    <div class="row">
-      <div class="col-md-2">
-        <div class="sidenav">
-          <a href="{{url_for('main.subscribe')}}">Subscribe</a>
-          <p>Follow us:</p>
-          <a href="#services">Twitter</a>
-          <a href="#clients">Facebook</a>
-          <a href="#cont">Github</a>
-
-          <p></p>
+   <header>
+    <nav class="navbar navbar-expand-md">
+      <div class="container">
+        <a style="text-transform: uppercase;" class="navbar-brand mr-0 blog" href="/">Joy Mbugua.</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mid-nav mr-auto">
+            <a class="nav-item nav-link" href="{{ url_for('main.index')}}">Home</a>
+            <a class="nav-item nav-link" href="{{ url_for('main.index')}}">About</a>
+          </div>
+  
+           <ul class="nav navbar-nav navbar-right">
+            {% if current_user.is_authenticated %}
+            <a class="nav-item nav-link" href="{{ url_for('main.new_blog')}}">New Blog</a>
+            <a class="nav-item nav-link" href="{{ url_for('main.profile', writers_name = current_user.username)}}">Profile</a>
+            <a class="nav-item nav-link" href="{{ url_for('auth.logout')}}">Log Out</a>
+            {% else %}
+            <a class="nav-item nav-link" href="{{ url_for('auth.login')}}">Sign In</a>
+            
+            <a class="nav-item nav-link" href="{{ url_for('auth.register')}}">Register</a>
+            {%endif%}
+            </ul>
+          
+   
         </div>
       </div>
+  
+    </nav>
+   </header>
+    <!-- sidebar -->
+    <div class="row">
+      <div class="col-md-1">
+        {% block sidebar %}
+        {% endblock %}
+      </div>
       
-     <div class="col-md-8">
+     <div class="col-md-11">
        
       <div class="main container">
         {% block content %}
         {% endblock %}
     </div>
-    <div class="col-md-2">
-      <!-- social media -->
-
-    </div>
+  
     </div>
 
    </div>

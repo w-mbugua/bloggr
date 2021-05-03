@@ -1,5 +1,29 @@
 {% extends 'base.html'%}
 
+{% block sidebar %}
+<div class="sidenav">
+    <a href="{{url_for('main.subscribe')}}">Subscribe</a>
+    <p>Follow us:</p>
+    <div class="social">
+        <img src="{{url_for('static', filename='/images/twitter.png')}}" alt="Fb icon">
+        <a href="#">Twitter</a>
+    </div>
+    <div class="social">
+        <img src="{{url_for('static', filename='/images/fb.png')}}" alt="Fb icon">
+        <a href="#">Facebook</a>
+    </div>
+    <div class="social">
+        <img src="{{url_for('static', filename='/images/ig.png')}}" alt="Fb icon" width="50px">
+        <a href="#">Instagram</a>
+    </div>
+    <div class="social">
+        <img src="{{url_for('static', filename='/images/git.png')}}" alt="Fb icon" width="50px">
+        <a href="#">GitHub</a>
+    </div>
+
+    <p></p>
+  </div>
+{% endblock %}
 {% block content %}
 <div class="blog quote container mt-3 mb-3">
     {% if quote %}
@@ -17,12 +41,12 @@
         <div class="col-md-1">
             <p>5 minutes read</p>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
             <h5>{{ post.title }}</h5>
         <p>{{post.post| truncate(255)}}</p>
         <p>Author: {{ post.writer.username}}</p>
         </div>
-        <div class="col-md-1">
+        <div class="col-md-2">
             <p><a href="{{url_for('main.read_blog', id = post.id)}}">See more...</a></p>
         </div>
     </div>

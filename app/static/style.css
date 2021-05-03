@@ -3,13 +3,14 @@
 body {
     margin: 0;
     padding: 0;
+    width: 100vw;
 }
 header {
     background-image: url(./images/header1.jpg);
     background-size: cover;
     background-position: center;
     position: relative;
-    height: 200px;
+    height: 300px;
 }
 .navbar {
     background-color: #AFC9CE;
@@ -17,6 +18,9 @@ header {
     letter-spacing: 5px;
     font-family: 'Poiret One', cursive;
     font-weight: bolder;
+}
+.navbar-right{
+  margin-right: 0;
 }
 .mid-nav {
    margin-left: 16rem;
@@ -49,7 +53,7 @@ blockquote{
     left: 0;
     background-color: #AFC9CE;
     overflow-x: hidden;
-    padding-top: 20px;
+    padding-top: 5rem;
     text-align: center;
   }
   
@@ -65,7 +69,10 @@ blockquote{
   .sidenav a:hover {
     color: black;
   }
-  
+  .social{
+    display: flex;
+    padding: 2rem;
+  }
   .main {
     margin-left: 160px; /* Same as the width of the sidenav *//* Increased text to enable scrolling */
     padding: 0px 10px;
