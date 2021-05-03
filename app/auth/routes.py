@@ -5,7 +5,8 @@ from .forms import RegistrationForm, LoginForm
 from .. import db
 from ..models import Writer
 from flask_login import login_user, logout_user
-
+from flask_mail import Message
+from .. import mail
 
 @auth.route('/register', methods = ['GET', 'POST'])
 def register():
@@ -14,6 +15,11 @@ def register():
         writer = Writer(username = form.username.data, email = form.email.data, password = form.password.data)
         db.session.add(writer)
         db.session.commit()
+        msg = Message(subject="Welcome To The Code Savvy Blog",
+                          sender="itsjoymbugua@gmail.com",
+                          recipients=[form.email.data],
+                          body=f"Hey {writer.username}\nThank you for signing up. If you have any queries, don't hesitate to contact me!\nJoy Mbugua")
+        mail.send(msg)
         flash('Your account has been created!', 'success')
         return redirect(url_for('auth.login'))
     return render_template('auth/register.html', title='Registration', form = form)

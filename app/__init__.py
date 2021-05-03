@@ -7,11 +7,13 @@ from flask_bootstrap import Bootstrap
 from flask_simplemde import SimpleMDE
 from mailchimp_marketing import Client
 from mailchimp3 import MailChimp
+from flask_mail import Mail
 
 db = SQLAlchemy()
 simple = SimpleMDE()
 bootstrap = Bootstrap()
 mailchimp = Client()
+mail = Mail()
 
 
 login_manager = LoginManager()
@@ -32,6 +34,7 @@ def create_app(config_name):
     login_manager.init_app(app)
     simple.init_app(app)
     bootstrap.init_app(app)
+    mail.init_app(app)
 
 
     from .auth import auth as auth_blueprint

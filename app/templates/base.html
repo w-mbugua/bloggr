@@ -14,8 +14,10 @@
     <!-- navbar -->
    <header>
     <nav class="navbar navbar-expand-md">
+      <p><a class="mr-0 blog title" href="/">Code Savvy</a><small>by Joy Mbugua.</small>
+      </p> 
+       
       <div class="container">
-        <a style="text-transform: uppercase;" class="navbar-brand mr-0 blog" href="/">Joy Mbugua.</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -23,12 +25,14 @@
           <div class="navbar-nav mid-nav mr-auto">
             <a class="nav-item nav-link" href="{{ url_for('main.index')}}">Home</a>
             <a class="nav-item nav-link" href="{{ url_for('main.index')}}">About</a>
+            {% if current_user.is_authenticated %}
+            <a class="nav-item nav-link" href="{{ url_for('main.profile', writers_name = current_user.username)}}">Profile</a>
+            {% endif %}
           </div>
   
            <ul class="nav navbar-nav navbar-right">
             {% if current_user.is_authenticated %}
             <a class="nav-item nav-link" href="{{ url_for('main.new_blog')}}">New Blog</a>
-            <a class="nav-item nav-link" href="{{ url_for('main.profile', writers_name = current_user.username)}}">Profile</a>
             <a class="nav-item nav-link" href="{{ url_for('auth.logout')}}">Log Out</a>
             {% else %}
             <a class="nav-item nav-link" href="{{ url_for('auth.login')}}">Sign In</a>

@@ -35,6 +35,16 @@ nav a {
  
 
 }
+.title {
+  font-size: 2rem;
+  
+}
+.title:hover{
+  color: lightcoral;
+}
+nav a {
+  text-decoration: none;
+}
 .blog, blockquote {
     font-family: 'Caveat', cursive;
 }

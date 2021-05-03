@@ -8,6 +8,16 @@ class Config:
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
 
+    # mail_settings 
+    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_PORT = 465
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
+    MAIL_USERNAME = os.environ.get('MAIL_USER')
+    MAIL_PASSWORD = os.environ.get('MAIL_PASS')
+
+
+
     root_url = 'https://us1.api.mailchimp.com/3.0/'
     MAILCHIMP_API_KEY = os.environ.get('MAILCHIMP_API_KEY')
     MAILCHIMP_AUD_ID = os.environ.get('MAILCHIMP_AUD_ID')
