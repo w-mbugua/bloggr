@@ -1,9 +1,9 @@
 from . import main
-from flask import render_template, flash, redirect, url_for, abort
+from flask import render_template, flash, redirect, request, url_for, abort
 from flask_login import login_required, current_user
-from .forms import BlogPost, CommentForm, UpdateProfile
+from .forms import BlogPost, CommentForm, UpdateProfile, SubscriptionForm
 from .. import db
-from ..models import Blog, Comment, Writer
+from ..models import Blog, Comment, Writer, Subscription
 import urllib.request, json
 
 
@@ -101,6 +101,19 @@ def random_quote():
     if data['quote']:
         quote = data
     return quote
+
+@main.route('/new/subscriber', methods = ['GET','POST'])
+def subscribe():
+    form = SubscriptionForm()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            subscription = Subscription(name = form.name.data, email = form.email.data)
+            # signup(form.email.data)
+            db.session.add(subscription)
+            db.session.commit()
+            flash("You subscribed!")
+            return redirect(url_for('main.index'))
+    return render_template('subscribe.html', form = form)
 
 
  

@@ -50,6 +50,7 @@ blockquote{
     background-color: #AFC9CE;
     overflow-x: hidden;
     padding-top: 20px;
+    text-align: center;
   }
   
   .sidenav a {
