@@ -7,31 +7,33 @@
                 {% if writer.bio %}
                 <p>{{ writer.bio }}</p>
                 {% else %}
-                <p>{{ writer.username | capitalize }} has no bio.</p>
+                <p>You have no bio.</p>
                 {% if writer == current_user %}
                 <p><a href="{{ url_for('main.update_profile', name = writer.username)}}">Edit Profile</a></p>
                 {% endif %}
                 {% endif %}
             </div>
             <!-- photo -->
-            <div class="col-md-3">
-                {% if writer.image_path %}
-                <img src="{{url_for('static',filename='/images/avi.png')}}" alt="" class="img-thumbnail">
-                {% else %}
-                <img src="{{url_for('static',filename='/images/avi.png')}}" alt="" class="img-thumbnail">
-                {% endif %}
-            </div>
+           
         </div>
-        <div class="row">
-            <h1>Your Blog Posts</h1>
+
+           
+        <!-- display -->
+        <div class="card-body">
+           
+            <h4>Your Blog Entries</h4>
             {% if blogs %}
             {% for blog in blogs %}
-                {{ blog.post }}
+         <h1><a href="{{ url_for('main.read_blog', id = blog.id)}}">{{ blog.title | title }}</a></h1>
+         <small>{{ blog.date_posted.strftime('%Y-%m-%d')}}</small>
+            <hr>
+            <p>{{ blog.post | truncate(200) }}</p>
+            <hr>
             {% endfor %}
             {% else %}
-            <p>You have no blog posts</p>
+            <p class="placeholder-comment">You have no blog posts</p>
             {% endif %}
-        </div>
+          </div>
     </div>
     
 {% endblock %}

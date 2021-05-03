@@ -3,8 +3,10 @@
 {% block sidebar %}
 <div class="sidenav">
     <a href="{{url_for('main.subscribe')}}">Subscribe</a>
+    <br>
+    <br>
     <p>Follow us:</p>
-    <div class="social">
+    <div style="padding-top: 10px;" class="social">
         <img src="{{url_for('static', filename='/images/twitter.png')}}" alt="Fb icon">
         <a href="#">Twitter</a>
     </div>
@@ -41,12 +43,12 @@
             <p>{{ countr(post.post) }}</p>
         </div>
         <div class="col-md-8">
-            <h5>{{ post.title }}</h5>
+            <h5>{{ post.title | title }}</h5>
         <p>{{post.post| truncate(255)}}</p>
         <p>Author: {{ post.writer.username}}</p>
         </div>
         <div class="col-md-2">
-            <p><a href="{{url_for('main.read_blog', id = post.id)}}">See more...</a></p>
+            <p><a href="{{url_for('main.read_blog', id = post.id)}}">See More...</a></p>
         </div>
     </div>
     <hr>

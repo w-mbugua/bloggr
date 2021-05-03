@@ -23,9 +23,9 @@ def countr(blog):
     read_time = math.ceil(words // 200)
     msg = None
     if read_time == 1 or read_time < 1:
-        msg = "1 minute read"
+        msg = "1 Minute Read"
     else:
-        msg = f"{read_time} minutes read"
+        msg = f"{read_time} Minutes Read"
     return msg
 
 def create_app(config_name):

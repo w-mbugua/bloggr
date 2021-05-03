@@ -2,12 +2,14 @@
 {% block content %}
 {%if blog %}
 <h1>{{ blog.title }}</h1>
+<small class="text-muted">{{ blog.date_posted.strftime('%Y-%m-%d') }}</small>
 <hr>
 <p>{{ blog.post }}</p>
-<p>Posted by : {{ blog.writer }}</p>
+<p><strong>Author : {{ blog.writer }}</strong></p>
 {% if current_user == blog.writer %}
-<button class="btn-register"><a href="{{ url_for('main.blogupdate', id = blog.id)}}">Edit Post</a></button>
-<button class="btn-register"><a href="{{ url_for('main.blog_delete', id = blog.id)}}">Delete Post</a></button>
+<button class="btn btn-post"><a style="color: wheat;" href="{{ url_for('main.blogupdate', id = blog.id)}}">Edit Post</a></button>
+
+<button class="btn btn-danger ml-2"><a style="color: white;"  href="{{ url_for('main.blog_delete', id = blog.id)}}">Delete Post</a></button>
 {% endif %}
 <div class="card card-outline-secondary my-4">
   <div class="card-header">
@@ -24,8 +26,7 @@
         {{ form.body.label }}
         {{ form.body(class="form-control", rows="3") }}
       </div>
-      {{ form.submit(class="btn btn-register") }}
-      <span class="comment-error"></span>
+      {{ form.submit(class="btn btn-post") }}
     </form>
     <hr class="form-border">
     {% if comments %}
