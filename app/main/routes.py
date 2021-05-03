@@ -7,6 +7,7 @@ from ..models import Blog, Comment, Writer, Subscription
 import urllib.request, json
 from flask_mail import Message
 from .. import mail
+import math
 
 @main.route('/')
 def index():
@@ -15,7 +16,10 @@ def index():
     quote = random_quote()
     return render_template('index.html', title = 'Home Page', posts = blogposts, quote = quote)
 
-
+def countr(blog):
+    words = len(blog)
+    read_time = math.ceil(words // 200)
+    return read_time
 
 @main.route('/blog/new', methods = ['GET', 'POST'])
 @login_required

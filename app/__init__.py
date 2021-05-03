@@ -5,14 +5,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_manager
 from flask_bootstrap import Bootstrap
 from flask_simplemde import SimpleMDE
-from mailchimp_marketing import Client
-from mailchimp3 import MailChimp
 from flask_mail import Mail
+import math
 
 db = SQLAlchemy()
 simple = SimpleMDE()
 bootstrap = Bootstrap()
-mailchimp = Client()
 mail = Mail()
 
 
@@ -20,9 +18,15 @@ login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
 
-MAILCHIMP_API_KEY = os.environ.get('MAILCHIMP_API_KEY')
-
-client = MailChimp(mc_api=MAILCHIMP_API_KEY, mc_user='mbugua_j')
+def countr(blog):
+    words = len(blog)
+    read_time = math.ceil(words // 200)
+    msg = None
+    if read_time == 1 or read_time < 1:
+        msg = "1 minute read"
+    else:
+        msg = f"{read_time} minutes read"
+    return msg
 
 def create_app(config_name):
 
@@ -43,9 +47,6 @@ def create_app(config_name):
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
-    # setting config
-    from .chimp import configure_request
-    configure_request(app)
-
+    app.jinja_env.globals.update(countr=countr)
 
     return app
