@@ -15,8 +15,7 @@ class Config:
     MAIL_PASSWORD = os.environ.get('MAIL_PASS')
 
 class ProdConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgres://oifoekteswjcdo:64181d4f3f4ed77bfd5e56868642eca89d701e75cbf39a6f2f83a20f625c348c@ec2-50-16-108-41.compute-1.amazonaws.com:5432/d6fdke2sffeg9o'.replace("://", "ql://", 1)
-    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'postgres://mexldstdripdhe:ccd4d838a185c546cb99f43ce7ded2839e567f89af403827f5819a117b7e7ca5@ec2-35-174-35-242.compute-1.amazonaws.com:5432/d20rs9vgivecdj'.replace("://", "ql://", 1)
 
 class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://joey:alchemist007@localhost/bloggr_test'
