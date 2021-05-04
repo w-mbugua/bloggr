@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+         .btn-register, .btn-login{
+            background-color: lightcoral;
+        }
+        .cto {
+            color: lightcoral;
+        }
+        .btn {
+            font-weight: bold;
+        }
+        .form-group{
+            color: darkslategray;
+        }
+         a:link {
+          text-decoration: none;
+        }
+    </style>
+    {{ simplemde.css }}
+    {{ simplemde.js }}
+</head>
+<body style="font-family: 'Poiret One', cursive; font-weight: bold; height: 100vh;">
+    <div>
+        <nav class="navbar navbar-expand-md fixed-top">
+            <div style="margin-left: 0;" class="container">
+              <h3 class="blog">Joy Mbugua.</h3>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="ml-2 collapse navbar-collapse" id="navbarToggle">
+                <div class="mid-nav navbar-nav mr-auto">
+                  <a class="nav-item nav-link" href="{{ url_for('main.index')}}">Home</a>
+                  <a class="ml-2 mr-2 nav-item nav-link" href="{{ url_for('main.index')}}">About</a>
+                  <a class="nav-item nav-link" href="{{ url_for('main.index')}}">Features</a>
+                </div>
+                 <ul class="nav navbar-nav navbar-right">
+                    <a class="nav-item nav-link" href="{{ url_for('main.index')}}">Contact Me</a>
+                  </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      <div style="padding-top: 5rem;" class="container">
+          <div class="row">
+             
+              <div class="col-md-8">
+                <!--Flash message -->
+                    
+                <!-- blogging form -->
+              <div class="col-md-8">
+                <form method="post">
+                    {{ form.hidden_tag() }}  <!--  adds a csrf token -->
+                     <fieldset class=""form-group>
+                       <legend  class="mb-4 cto">Write Something</legend>
+                       <div class="form-group">
+                         {{ form.title.label(class="form-control-label") }}
+                 
+                         {% if form.title.errors %}
+                         {{ form.title(class="form-control form-conrol-lg is-invalid") }}
+                         <div class="invalid-feedback">
+                           {% for error in form.title.errors %}
+                             <span>{{error}}</span>
+                           {% endfor %}
+                         </div>
+                         {% else %}
+                         {{ form.title(class="form-control form-control-lg") }}
+                         {% endif %}
+                       </div>
+                       <div class="form-group">
+                         {{ form.body.label(class="form-control-label") }}
+                         {% if form.body.errors %}
+                         {{ form.body(class="form-control form-conrol-lg is-invalid") }}
+                         <div class="invalid-feedback">
+                           {% for error in form.body.errors %}
+                             <span>{{error}}</span>
+                           {% endfor %}
+                         </div>
+                         {% else %}
+                         {{ form.body(class="form-control form-control-lg") }}
+                         {{simplemde.load}}
+                         {% endif %}
+                       </div>
+                     </filedset>
+                     <div class="form-group">
+                       {{ form.submit(class="btn btn-register") }}
+                       <button style="border-color: lightcoral;" class="btn">
+                          <a style="color: lightcoral;" class="ml-2" href="{{ url_for('auth.login') }}">Home</a>
+                       </button>
+                     </div>
+                   </form>
+                   
+              </div>
+              </div>
+              <div class="col-md-4">
+               
+          </div>
+        </div>
+    
+</body>
+</html>

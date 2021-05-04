@@ -1,3 +1,26 @@
 {% extends 'base.html'%}
 {% block content %}
 {% endblock %}
+
+import os
+
+import requests, json
+from . import db
+
+root_url = 'https://us1.api.mailchimp.com/3.0/'
+MAILCHIMP_API_KEY = os.environ.get('MAILCHIMP_API_KEY')
+MAILCHIMP_AUD_ID = os.environ.get('MAILCHIMP_AUD_ID')
+
+members_endpoint = f'{root_url}/lists/{MAILCHIMP_AUD_ID}/members'
+
+def signup(mail):
+    data = {
+        "email": mail,
+        "status": "subscribed"
+    }
+    r = requests.post(members_endpoint, auth=("", MAILCHIMP_API_KEY), data = json.dumps(data))
+    return r.status_code, r.json
+
+print(signup('wacumbugua@gmail.com'))
+
+      

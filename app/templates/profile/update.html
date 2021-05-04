@@ -1,0 +1,13 @@
+{% extends 'layout.html'%}
+{% block content %}
+<form action="">
+    {{ form.hidden_tag() }}
+
+    <div class="form-group">
+      {{ form.bio.label }}
+      {{ form.bio(class="form-control", rows="5") }}
+    </div>
+    {{ form.submit(class="btn btn-register") }}
+    <span class="comment-error"></span>
+  </form>
+{% endblock %}

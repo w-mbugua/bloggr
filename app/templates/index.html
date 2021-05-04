@@ -1,5 +1,71 @@
 {% extends 'base.html'%}
+
 {% block content %}
-<h1>You are home!</h1>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora blanditiis et laborum corporis aspernatur! Consectetur numquam dicta, ratione accusamus sequi deleniti, itaque cum officia obcaecati mollitia tempore vitae, illo possimus?</p>
+<div class="blog quote container mt-3 mb-3">
+    {% if quote %}
+    <blockquote class="text-muted">{{ quote.get('quote')}} ~ {{ quote.get('author')}}</blockquote>   
+    {% else %}
+    <blockquote class="text-muted"> It was the best of times. It was the worst of times ~ Charles Dickens</blockquote>
+
+    {% endif %}
+   <hr>
+   </div>
+{% if posts %}
+{% for post in posts.items %}
+    <div class="row">
+        <div class="col-md-1">
+            <p>{{ countr(post.post) }}</p>
+        </div>
+        <div class="col-md-7">
+            <a href="{{url_for('main.read_blog', id = post.id)}}"><h3>{{ post.title | title }}</h3></a>
+        <p>{{post.post| truncate(255)}}</p>
+        <p>Author: {{ post.writer.username|capitalize}}</p>
+        </div>
+        <div class="col-md-2">
+            <p><a href="{{url_for('main.read_blog', id = post.id)}}">See More...</a></p>
+        </div>
+    </div>
+    <hr>
+{% endfor %}
+{% for page_num in posts.iter_pages() %}
+    {% if page_num %}
+        {% if posts.page == page_num %}
+        <a class="btn btn-danger mb-4" href="{{url_for('main.index', page = page_num)}}">{{ page_num }}</a>
+        {% else %}
+        <a class="btn btn-outline-danger mb-4" href="{{url_for('main.index', page = page_num)}}">{{ page_num }}</a>
+        {% endif %}
+    {% else %}
+        ...
+    {% endif %}
+{% endfor %}
+{% else %}
+<P>No posts</P>
+{% endif %}
+
+{% endblock %}
+{% block sidebar %}
+<div class="sidenav">
+    <a href="{{url_for('main.subscribe')}}">Subscribe</a>
+    <br>
+    <br>
+    <p>Follow us:</p>
+    <div style="padding-top: 10px;" class="social">
+        <img src="{{url_for('static', filename='/images/twitter.png')}}" alt="Fb icon">
+        <a href="#">Twitter</a>
+    </div>
+    <div class="social">
+        <img src="{{url_for('static', filename='/images/fb.png')}}" alt="Fb icon">
+        <a href="#">Facebook</a>
+    </div>
+    <div class="social">
+        <img src="{{url_for('static', filename='/images/ig.png')}}" alt="Fb icon" width="50px">
+        <a href="#">Instagram</a>
+    </div>
+    <div class="social">
+        <img src="{{url_for('static', filename='/images/git.png')}}" alt="Fb icon" width="50px">
+        <a href="#">GitHub</a>
+    </div>
+
+    <p></p>
+  </div>
 {% endblock %}

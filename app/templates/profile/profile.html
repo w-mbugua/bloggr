@@ -1,0 +1,39 @@
+{% extends 'base.html'%}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h3>{{ writer.username | capitalize }}</h3>
+                {% if writer.bio %}
+                <p>{{ writer.bio }}</p>
+                {% else %}
+                <p>You have no bio.</p>
+                {% if writer == current_user %}
+                <p><a href="{{ url_for('main.update_profile', name = writer.username)}}">Edit Profile</a></p>
+                {% endif %}
+                {% endif %}
+            </div>
+            <!-- photo -->
+           
+        </div>
+
+           
+        <!-- display -->
+        <div class="card-body">
+           
+            <h4>Your Blog Entries</h4>
+            {% if blogs %}
+            {% for blog in blogs %}
+         <h1><a href="{{ url_for('main.read_blog', id = blog.id)}}">{{ blog.title | title }}</a></h1>
+         <small>{{ blog.date_posted.strftime('%Y-%m-%d')}}</small>
+            <hr>
+            <p>{{ blog.post | truncate(200) }}</p>
+            <hr>
+            {% endfor %}
+            {% else %}
+            <p class="placeholder-comment">You have no blog posts</p>
+            {% endif %}
+          </div>
+    </div>
+    
+{% endblock %}
