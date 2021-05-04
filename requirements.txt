@@ -21,6 +21,8 @@ idna==2.10
 importlib-metadata==4.0.1
 itsdangerous==1.1.0
 Jinja2==2.11.3
+mailchimp-marketing==3.0.41
+mailchimp3==3.0.14
 Mako==1.1.4
 markdown2==2.4.0
 MarkupSafe==1.1.1
