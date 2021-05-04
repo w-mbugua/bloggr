@@ -19,8 +19,11 @@ login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
 
 def countr(blog):
-    words = len(blog)
-    read_time = math.ceil(words // 200)
+    words = blog.split(" ")
+    word_count = 0
+    for word in words:
+        word_count += 1
+    read_time = math.ceil(word_count // 200)
     msg = None
     if read_time == 1 or read_time < 1:
         msg = "1 Minute Read"

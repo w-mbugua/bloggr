@@ -12,7 +12,7 @@ import math
 @main.route('/')
 def index():
     page = request.args.get('page', 1, type = int)
-    blogposts = Blog.query.order_by(Blog.date_posted.desc()).paginate(page = page, per_page = 4)
+    blogposts = Blog.query.order_by(Blog.date_posted.desc()).paginate(page = page, per_page = 3)
     quote = random_quote()
     return render_template('index.html', title = 'Home Page', posts = blogposts, quote = quote)
 
@@ -31,16 +31,15 @@ def new_blog():
         blog = Blog(title = form.title.data, post = form.body.data, writer = current_user)
         db.session.add(blog)
         db.session.commit()
-        flash('Your blog has been posted!', 'success')
+        # sending new post alerts
         for subby in subbies:
             if subby.email is not None:
                 msg = Message(subject=f"New Post Alert | {form.title.data}",
                           sender="itsjoymbugua@gmail.com",
                           recipients=[subby.email],
-                          body=f"Hey {subby.name}\nJust wanted to let you know that we have just posted a new blog. Let us know what you think!\nJoy Mbugua")
+                          body=f"Hey {subby.name},\nJust wanted to let you know that we have just posted a new blog post. Let us know what you think!\nYours Truly,\nJoy Mbugua")
                 mail.send(msg)
         return redirect(url_for('main.index'))  
-    flash("Check your input!", 'warning')
     return render_template('new_blog.html', form = form, subbies = subbies)
 
 @main.route('/blog/<int:id>')
@@ -113,7 +112,6 @@ def blog_delete(id):
        abort(403)
     db.session.delete(blog)
     db.session.commit()
-    flash('Blog successfully deleted!')
     return redirect(url_for('main.index'))
 
 

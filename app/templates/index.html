@@ -19,7 +19,7 @@
         <div class="col-md-7">
             <a href="{{url_for('main.read_blog', id = post.id)}}"><h3>{{ post.title | title }}</h3></a>
         <p>{{post.post| truncate(255)}}</p>
-        <p>Author: {{ post.writer.username}}</p>
+        <p>Author: {{ post.writer.username|capitalize}}</p>
         </div>
         <div class="col-md-2">
             <p><a href="{{url_for('main.read_blog', id = post.id)}}">See More...</a></p>

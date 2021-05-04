@@ -11,25 +11,40 @@
 </head>
 <body style="font-family: 'Poiret One', cursive; font-weight: bold; height: 100vh;">
     <div>
-        <nav class="navbar navbar-expand-md fixed-top">
-            <div style="margin-left: 0;" class="container">
-              <h3 class="blog">Joy Mbugua.</h3>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="ml-2 collapse navbar-collapse" id="navbarToggle">
-                <div class="mid-nav navbar-nav mr-auto">
-                  <a class="nav-item nav-link" href="{{ url_for('main.index')}}">Home</a>
-                  <a class="ml-2 mr-2 nav-item nav-link" href="{{ url_for('main.index')}}">About</a>
-                  <a class="nav-item nav-link" href="{{ url_for('main.index')}}">Features</a>
-                </div>
-                 <ul class="nav navbar-nav navbar-right">
-                    <a class="nav-item nav-link" href="{{ url_for('main.index')}}">Contact Me</a>
-                  </ul>
-              </div>
+      <nav class="navbar navbar-expand-md">
+        <p><a class="mr-0 blog title" href="/">Code Savvy</a><small>by Joy Mbugua.</small>
+        </p> 
+         
+        <div class="container">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mid-nav mr-auto">
+              <a class="nav-item nav-link" href="{{ url_for('main.index')}}">Home</a>
+              <a class="nav-item nav-link" href="{{ url_for('main.index')}}">About</a>
+              {% if current_user.is_authenticated %}
+              <a class="nav-item nav-link" href="{{ url_for('main.profile', writers_name = current_user.username)}}">Profile</a>
+              {% endif %}
             </div>
-          </nav>
+    
+             <ul class="nav navbar-nav navbar-right">
+              {% if current_user.is_authenticated %}
+              <a class="nav-item nav-link" href="{{ url_for('main.new_blog')}}">New Blog</a>
+              <a class="nav-item nav-link" href="{{ url_for('auth.logout')}}">Log Out</a>
+              {% else %}
+              <a class="nav-item nav-link" href="{{ url_for('auth.login')}}">Sign In</a>
+              
+              <a class="nav-item nav-link" href="{{ url_for('auth.register')}}">Register</a>
+              {%endif%}
+              </ul>
+            
+     
+          </div>
         </div>
+    
+      </nav>
+      </div>
       <div style="padding-top: 5rem;" class="container">
           <div class="row">
               <div style="padding-top: 10rem;" class="col-md-6">

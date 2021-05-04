@@ -79,6 +79,7 @@ blockquote{
     text-decoration: none;
     font-family: 'Poiret One', cursive;
     font-size: 25px;
+    font-weight: bold;
     color: white;
     display: block;
   }
